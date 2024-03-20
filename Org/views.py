@@ -1,26 +1,15 @@
-from django.shortcuts import render
-
-# Create your views here.
-
-
+# org/views.py
 from django.shortcuts import render, redirect
-from .forms import OrgRegistrationForm
+from .forms import OrgSignupForm
 
-def org_registration(request):
+def org_signup(request):
     if request.method == 'POST':
-        form = OrgRegistrationForm(request.POST)
+        form = OrgSignupForm(request.POST, request.FILES)
         if form.is_valid():
-            # Save the form data to create a new Org object
-            org = form.save(commit=False)
-            # Assign the current user to the 'user' field
-            org.user = request.user
-            # Save the object
-            org.save()
-            print("org created")
-            # Redirect to a success page or any other desired page
-            return redirect('home')
+            form.save()
+            print("Form is saved")
+            # Redirect to a success page or login page
+            return redirect('home')  # Adjust this to your actual login URL
     else:
-        # Display the form for GET requests
-        form = OrgRegistrationForm()
-    
-    return render(request, 'org-signup.html', {'form': form})
+        form = OrgSignupForm()
+    return render(request, 'signup.html', {'form': form})
