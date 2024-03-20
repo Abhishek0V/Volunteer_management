@@ -2,8 +2,85 @@
 <html>
 <head>
     <title>Event Page</title>
+    <style>
+        .banner {
+            background-image: url('{{ event.poster.url }}');
+            background-size: cover;
+            height: 400px; /* Increased height of the banner */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            font-size: 24px;
+        }
+        .event-details {
+            position: relative; /* Relative positioning for the card */
+            width: 60%; /* Adjusted width of the card */
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: rgb(196, 199, 204);
+        }
+        .apply-button {
+            position: absolute; /* Absolute positioning for the button */
+            bottom: 20px; /* Distance from the bottom */
+            right: 20px; /* Distance from the right */
+            border: none;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .apply-button:hover {
+            background-color: #0056b3;
+        }
+        .event-detail-heading {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .event-detail {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>You are at the event page</h1>
+    <div class="banner">
+        <h1>{{ event.Event_Name }}</h1>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="event-details">
+                    <h2>Volunteer for {{ event.Event_Name }} and Make a Difference</h2>
+                    <div class="event-detail">
+                        <h3 class="event-detail-heading">Event Description:</h3>
+                        <p>{{ event.Event_Description }}</p>
+                    </div>
+                    <div class="event-detail">
+                        <h3 class="event-detail-heading">Date:</h3>
+                        <p>{{ event.Event_Date|date:"D, d M Y" }}</p>
+                    </div>
+                    <div class="event-detail">
+                        <h3 class="event-detail-heading">Time:</h3>
+                        <p>{{ event.Event_Date|time:"h:i A" }}</p>
+                    </div>
+                    <div class="event-detail">
+                        <h3 class="event-detail-heading">Location:</h3>
+                        <p>{{ event.Location }}</p>
+                    </div>
+                    <div class="event-detail">
+                        <h3 class="event-detail-heading">Number of Volunteers:</h3>
+                        <p>{{ event.Number_of_Volunteer }}</p>
+                    </div>
+                    <button class="btn btn-primary apply-button">Apply as Volunteer</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
