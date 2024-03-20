@@ -7,7 +7,7 @@ from .forms import EventForm
 def home(request):
     events = Events.objects.all()
     context = { 'events': events}
-    return render(request, 'home.html', context)
+    return render(request, 'hom.html', context)
 
 def events(request, pk):
     event = get_object_or_404(Events, Event_ID=pk)

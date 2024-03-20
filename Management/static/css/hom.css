@@ -1,0 +1,118 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.container{
+    width:100%;
+    min-height:90vh;
+    background-color:rgb(238, 230, 230);
+    
+}
+.header{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    font-size:1.5rem;
+    height:80px;
+
+}
+.header li{
+    list-style-type:none;
+}
+nav ul li{
+    display:inline;
+    padding:0 40px;
+}
+
+nav{
+    margin:20px 29px;
+    
+}
+.header button{
+position:absolute;
+margin:0 140px;
+background-color:rgb(238, 230, 230);
+padding:10px 40px;
+border-radius:5px;
+border:none;
+border:2px solid blue;
+font-size:1rem;
+font-weight:300;
+}
+.header button:hover{
+    background-color:rgb(60, 60, 232);
+    transition:0.5S;
+}
+
+.content{
+    background-color:rgb(245, 241, 238);
+    width:100%;
+    min-height:120vh;
+    padding:30px;
+}
+.content h2{
+    font-size:3rem;
+    font-family:'Times New Roman', Times, serif;
+    font-weight: 520;
+}
+.content button{
+    position:absolute;
+    bottom:0;
+    right:50px;
+    padding:18px 50px;
+    border-radius:25px;
+    background-color:rgb(29, 29, 228);
+    border:none;
+    color:white;
+    font-size:20px;
+    font-weight: 700;
+}
+
+
+.footer{
+    background-color:rgb(47, 47, 43);
+    width: 100%;
+    height:200px;
+}
+
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.card {
+    flex: 0 0 calc(40% - 25px);
+    margin: 10px;
+    border: none;
+    overflow: hidden;
+    position: relative;
+    height: 300px;
+    border-radius: 15px;
+}
+.card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.33); /* Adjust the alpha value to control brightness */
+    z-index: 1;
+}
+.card-body {
+    position: relative;
+    z-index: 2;
+    color: white; /* Text color */
+}
+.btn-know-more {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 2;
+}
+img{
+    width:650px;
+    height:43vh;
+}
