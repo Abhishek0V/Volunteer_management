@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from .forms import VolSignupForm
 from django.contrib import messages
@@ -46,3 +46,6 @@ def vol_signup(request):
     return render(request, 'signup.html', {'form': form})
 
 
+def volunteer_logout(request):
+    logout(request)  # Log out the user
+    return redirect('home') 

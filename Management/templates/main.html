@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Footer Example</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      .navbar {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar-logo {
+        width: 50px;
+        height: auto;
+        margin-right: 20px;
+      }
+
+      .navbar-menu {
+        display: flex;
+        flex-grow: 1;
+        justify-content: center;
+      }
+
+      .navbar-menu a {
+        color: #fff;
+        text-decoration: none;
+        margin: 0 20px;
+      }
+
+      .login-button {
+        background-color: #fff;
+        color: #333;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .content {
+        flex: 1;
+      }
+
+      .footer {
+        background-color: #333;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .footer-logo {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .footer-description {
+        font-size: 15px;
+      }
+
+      .footer-image {
+        display: block;
+        margin: 0 auto;
+        max-width: 140px; /* Adjust size as needed */
+      }
+
+      .quick-line {
+        margin-top: 20px;
+        font-size: 13px;
+      }
+
+      .social-icons {
+        margin-top: 20px;
+      }
+
+      .social-icons a {
+        color: #fff;
+        margin: 0 10px;
+        margin-top: 20px;
+        justify-content: center;
+        display: none;
+      }
+      .rigt-side {
+        display: #fff;
+        margin: 0 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <div>
+        <img src="logo.png" alt="Logo" class="navbar-logo" />
+      </div>
+      <div class="navbar-menu">
+        <a href="#">Home</a>
+        <a href="#">Gallery</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </div>
+      <button class="login-button">Login</button>
+    </div>
+
+    <div class="content">
+      {{ block content}}
+      {{ endblock }}
+    </div>
+
+    <footer class="footer">
+      <div>
+        <img src="logo.png" alt="Logo" class="footer-logo" />
+        <p class="footer-description">HELPER</p>
+      </div>
+      <img src="gallery.png" alt="Center Image" class="footer-image" />
+      <div class="right-side">
+        <p class="quick-line">Quick line</p>
+        <p>About us</p>
+        <p>Become volunteer</p>
+      </div>
+      <div class="social-icons">
+        <a href="#"><img src="facebook.png" alt="Facebook" /></a>
+        <a href="#"><img src="instagram.png" alt="Instagram" /></a>
+        <a href="#"><img src="linkedin.png" alt="LinkedIn" /></a>
+        <a href="#"><img src="twitter.png" alt="Twitter" /></a>
+      </div>
+    </footer>
+  </body>
+</html>

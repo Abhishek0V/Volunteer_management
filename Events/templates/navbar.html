@@ -1,0 +1,55 @@
+<style>
+.login-button {
+        background-color: #fff;
+        color: #333;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+}
+.navbar {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar-logo {
+    width: 50px;
+    height: auto;
+    margin-right: 20px;
+  }
+
+  .navbar-menu {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+  }
+
+  .navbar-menu a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 20px;
+  }
+</style>
+
+<div class="navbar">
+    <div>
+      <img src="logo.png" alt="Logo" class="navbar-logo" />
+    </div>
+    <div class="navbar-menu">
+      <a href="#">Home</a>
+      <a href="#">Gallery</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </div>
+    <a href="/volunteer/login">
+      {% if request.user.is_authenticated %}
+      <a class="login-button" href="/volunteer/logout">Logout</a>
+  {% else %}
+      <a class="login-button" href="/volunteer/login">Login</a>
+  {% endif %}
+    </a>
+  </div>

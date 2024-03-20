@@ -1,8 +1,10 @@
 # views.py
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render, redirect
-from .models import Events
+
+from Volunteer.models import volunteer
+from .models import Events, Registered_volunteers
 from .forms import EventForm
 
 
@@ -35,3 +37,23 @@ def create_event(request):
     else:
         form = EventForm()
     return render(request, 'create_event.html', {'form': form})
+
+@login_required
+def register_for_event(request, event_id):
+    event = Events.objects.get(pk=event_id)
+    
+    # Check if the user is a volunteer
+    if request.user.Role != 'Vol':
+        return HttpResponseForbidden("Only volunteers can register for events.")
+    
+    # Retrieve the volunteer instance associated with the logged-in user
+    try:
+        volunteer_instance = volunteer.objects.get(user=request.user)
+    except volunteer.DoesNotExist:
+        # Handle case where volunteer instance doesn't exist for the user
+        # Redirect or display an error message as appropriate
+        pass
+    
+    # Assuming the user is a volunteer and a volunteer instance exists, proceed with registration
+    Registered_volunteers.objects.create(Event=event, Volunteers=volunteer_instance)
+    return redirect('home')
