@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organization Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Your custom CSS -->
+    <style>
+        
+        .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-y: auto;
+  }
+
+  .content {
+    flex: 1;
+    min-height: calc(100vh - 120px);
+    overflow-y: auto;
+    margin-bottom: 0;
+    /* Adjust the value based on the height of the footer */
+  }
+
+  .card {
+    flex: 0 0 calc(40% - 25px);
+    margin: 10px;
+    border: none;
+    overflow: hidden;
+    position: relative;
+    height: 300px;
+    border-radius: 15px;
+    overflow-y: auto;
+
+  }
+
+  .card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.40    ); /* Adjust the alpha value to control brightness */
+    z-index: 1;
+  }
+
+  .card-body {
+    position: relative;
+    z-index: 2;
+    color: white; /* Text color */
+  }
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <!-- Your navbar content here -->
+    </div>
+    <div class="container">
+        <h1>Welcome to Your Dashboard</h1>
+        <hr>
+        <div class="card-container">
+            {% for event in events %}
+            <div class="card" style="background-image: url('{{ event.poster.url }}');">
+                <div class="card-body">
+                    <h5 class="card-title">{{ event.Event_Name }}</h5>
+                    <p class="card-text">{{ event.Event_Description }}</p>
+                    <a href="{% url 'events' event.Event_ID %}" class="btn btn-primary btn-know-more">Know More</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <footer class="footer">
+        <!-- Your footer content here -->
+    </footer>
+
+    <!-- Bootstrap JS (optional, if needed) -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

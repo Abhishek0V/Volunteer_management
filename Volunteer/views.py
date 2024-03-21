@@ -38,8 +38,7 @@ def vol_signup(request):
         form = VolSignupForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            print("Form is saved")
-            # Redirect to a success page or login page
+            print("Form is saved")  # Redirect to a success page or login page
             return redirect('home')  # Adjust this to your actual login URL
     else:
         form = VolSignupForm()
@@ -48,4 +47,4 @@ def vol_signup(request):
 
 def volunteer_logout(request):
     logout(request)  # Log out the user
-    return redirect('home') 
+    return redirect('home')

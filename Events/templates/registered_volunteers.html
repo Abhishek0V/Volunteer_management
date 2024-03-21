@@ -2,37 +2,92 @@
 <html>
 <head>
     <title>Registered Volunteers</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        .volunteer-card {
-            display: inline-block;
-            width: 200px; /* Adjust width as needed */
-            margin: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        /* Adjustments to table */
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto; /* Center the table */
         }
-        .volunteer-name {
-            font-weight: bold;
-            margin-bottom: 5px;
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
         }
-        .volunteer-checkbox {
-            margin-top: 10px;
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Smaller width for serial number column */
+        .serial-number {
+            width: 50px;
+        }
+
+        /* Checkbox styles */
+        .check-all {
+            margin-bottom: 10px;
+        }
+
+        /* Submit button styles */
+        .submit-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        /* Align the "Check All" checkbox */
+        .check-all-label {
+            margin-left: 10px;
         }
     </style>
 </head>
 <body>
-    <h1>Registered Volunteers for {{ event.Event_Name }}</h1>
-    <form method="post">
-        {% csrf_token %}
-        {% for registered_volunteer in registered_volunteers %}
-            <div class="volunteer-card">
-                <div class="volunteer-name">{{ registered_volunteer.Volunteers }}</div>
-                <div class="volunteer-checkbox">
-                    <input type="checkbox" name="selected_volunteers[]" value="{{ registered_volunteer.id }}">
-                </div>
+    <div class="container">
+        <h1 class="mt-4 mb-4">Registered Volunteers for {{ event.Event_Name }}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="check-all form-group">
+                <input type="checkbox" id="checkAll"> <label class="check-all-label" for="checkAll">Check All</label>
             </div>
-        {% endfor %}
-        <button type="submit">Save Selection</button>
-    </form>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="serial-number">S. No.</th>
+                        <th>Volunteer Name</th>
+                        <th>Select</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for registered_volunteer in registered_volunteers %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ registered_volunteer.Volunteers }}</td>
+                        <td><input type="checkbox" name="selected_volunteers[]" value="{{ registered_volunteer.id }}" {% if registered_volunteer.Selected %}checked{% endif %}></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary submit-btn">Save Selection</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // JavaScript for "Check All" functionality
+        document.getElementById('checkAll').addEventListener('change', function() {
+            const checkboxes = document.querySelectorAll('input[name="selected_volunteers[]"]');
+            checkboxes.forEach((checkbox) => {
+                checkbox.checked = this.checked;
+            });
+        });
+    </script>
 </body>
 </html>

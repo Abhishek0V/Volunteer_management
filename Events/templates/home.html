@@ -168,7 +168,7 @@
             <a href="#">About</a>
             <a href="#">Contact</a>
             {% if user.is_authenticated and user.vol_profile %}
-                <a href="#">Notification</a>
+                <a href="/notifications">Notification</a>
             {% endif %}
         </div>
         {% if user.is_authenticated %}

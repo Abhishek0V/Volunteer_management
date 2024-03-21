@@ -64,9 +64,11 @@ def registered_volunteers(request, event_id):
     
     if request.method == 'POST':
         selected_volunteers = request.POST.getlist('selected_volunteers[]')
-        for volunteer_id in selected_volunteers:
-            volunteer = Registered_volunteers.objects.get(pk=volunteer_id)
-            volunteer.Selected = True
+        for volunteer in registered_volunteers:
+            if str(volunteer.id) in selected_volunteers:
+                volunteer.Selected = True
+            else:
+                volunteer.Selected = False
             volunteer.save()
         return redirect('registered_volunteers', event_id=event_id)
 
@@ -101,3 +103,13 @@ def get_notifications(request):
         data = [{'text': notification.text} for notification in notifications]
         return JsonResponse(data, safe=False)
     return JsonResponse([], safe=False)  # Return empty list if user is not logged in or not a volunteer
+
+
+def notification_page(request):
+    if request.user.is_authenticated and hasattr(request.user, 'volunteer'):
+        # Retrieve notifications for the currently signed-in volunteer
+        notifications = Notification.objects.filter(vol=request.user.volunteer)
+        return render(request, 'notification_page.html', {'notifications': notifications})
+    else:
+        # Handle the case when the user is not authenticated or not a volunteer
+        return render(request, 'notification_page.html', {'notifications': []})
