@@ -11,5 +11,6 @@ urlpatterns = [
     path('registered_volunteers/<int:event_id>/', views.registered_volunteers, name='registered_volunteers'),
     path('selected_volunteers/<int:event_id>/', views.selected_volunteers, name='selected_volunteers'),
     path('send_notification/<int:event_id>/', views.send_notification, name='send_notification'),
+    path('get_notifications/', views.get_notifications, name='get_notifications'),
 ]
 

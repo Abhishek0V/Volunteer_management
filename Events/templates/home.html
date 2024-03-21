@@ -55,24 +55,14 @@
         }
 
         .footer {
-            display: flex;
-            justify-content: center;
             background-color: #333;
             color: #fff;
             padding: 20px 0;
             text-align: center;
-            width: 100%;
+            width:100%;
              /* Initially hide the footer */
         }
-        .footerContainer{
-            display: block;
-            width: 80%;
-        }
-        .footerSection{
-            display: flex;
-            margin: 0;
-            justify-content: space-between;
-        }
+
         .footer.sticky {
             position: fixed;
             bottom: 0;
@@ -90,7 +80,8 @@
 
         .footer-image {
             display: block;
-            /* max-width: 140px; Adjust size as needed */
+            margin: 0 auto;
+            max-width: 140px; /* Adjust size as needed */
         }
 
         .quick-line {
@@ -107,7 +98,7 @@
             margin: 0 10px;
             margin-top: 20px;
             justify-content: center;
-            /* display: ; */
+            display: none;
         }
     </style>
 </head>
@@ -176,8 +167,15 @@
             <a href="#">Gallery</a>
             <a href="#">About</a>
             <a href="#">Contact</a>
+            {% if user.is_authenticated and user.vol_profile %}
+                <a href="#">Notification</a>
+            {% endif %}
         </div>
-        <button class="login-button">Login</button>
+        {% if user.is_authenticated %}
+    <a href="/volunteer/logout"><button class="login-button">Logout</button></a>
+{% else %}
+    <a href='/volunteer/login'><button class="login-button">Login</button></a>
+{% endif %}
     </div>
     <div class="container">
         <h1>Welcome</h1>
@@ -195,8 +193,6 @@
         </div>
       </div>
     <footer class="footer" id="footer">
-        <div class="footerContainer">
-            <div class="footerSection">
         <div>
             <img src="logo.png" alt="Logo" class="footer-logo" />
             <p class="footer-description">HELPER</p>
@@ -207,14 +203,12 @@
             <p>About us</p>
             <p>Become volunteer</p>
         </div>
-    </div>
         <div class="social-icons">
             <a href="#"><img src="facebook.png" alt="Facebook" /></a>
             <a href="#"><img src="instagram.png" alt="Instagram" /></a>
             <a href="#"><img src="linkedin.png" alt="LinkedIn" /></a>
             <a href="#"><img src="twitter.png" alt="Twitter" /></a>
         </div>
-    </div>
     </footer>
 
 </body>

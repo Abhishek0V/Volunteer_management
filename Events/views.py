@@ -1,6 +1,6 @@
 # views.py
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseForbidden
+from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 
 from Volunteer.models import Notification, volunteer
@@ -93,3 +93,11 @@ def send_notification(request, event_id):
         return redirect('selected_volunteers', event_id=event_id)
     else:
         return render(request, 'selected_volunteers.html', {'event_id': event_id})
+    
+def get_notifications(request):
+    if request.user.is_authenticated and hasattr(request.user, 'vol_profile'):
+        volunteer = request.user.vol_profile
+        notifications = Notification.objects.filter(vol=volunteer)
+        data = [{'text': notification.text} for notification in notifications]
+        return JsonResponse(data, safe=False)
+    return JsonResponse([], safe=False)  # Return empty list if user is not logged in or not a volunteer

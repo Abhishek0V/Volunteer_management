@@ -33,6 +33,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            text-decoration: none;
         }
         .apply-button:hover {
             background-color: #0056b3;
@@ -45,15 +46,21 @@
             margin-bottom: 10px;
         }
         .apply-button-container {
-            position: absolute;
-            bottom: 20px;
-        }
-        .apply-button-container.right {
-            right: 20px;
-        }
-        .apply-button-container.left {
-            left: 20px;
-        }
+        /* Adjusted positioning for the button container */
+        position: absolute;
+        bottom: 20px;
+    }
+
+    .apply-button-container.right {
+        /* Adjusted positioning for the right button container */
+        right: 20px;
+    }
+
+    .apply-button-container.left {
+        /* Adjusted positioning for the left button container */
+        left: calc(60% + 10px); /* Positioned halfway and adding margin */
+        transform: translateX(-50%); /* Move back half of its own width */
+    }   
     </style>
 </head>
 <body>
