@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     "Org",
     "Volunteer",
     "Events",
+    "communityspace"
+    
 ]
 
 MIDDLEWARE = [
