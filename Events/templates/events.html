@@ -13,6 +13,7 @@
             color: white;
             text-align: center;
             font-size: 24px;
+            overflow: hidden;
         }
         .event-details {
             position: relative; /* Relative positioning for the card */
@@ -25,9 +26,6 @@
             background-color: rgb(196, 199, 204);
         }
         .apply-button {
-            position: absolute; /* Absolute positioning for the button */
-            bottom: 20px; /* Distance from the bottom */
-            right: 20px; /* Distance from the right */
             border: none;
             padding: 10px 20px;
             background-color: #007bff;
@@ -45,6 +43,16 @@
         }
         .event-detail {
             margin-bottom: 10px;
+        }
+        .apply-button-container {
+            position: absolute;
+            bottom: 20px;
+        }
+        .apply-button-container.right {
+            right: 20px;
+        }
+        .apply-button-container.left {
+            left: 20px;
         }
     </style>
 </head>
@@ -78,18 +86,18 @@
                         <p>{{ event.Number_of_Volunteer }}</p>
                     </div>
                     {% if request.user.is_authenticated and request.user.Role == 'Org' %}
-    <div class="apply-button">
-        <a href="{% url 'registered_volunteers' event_id=event.Event_ID %}" class="btn btn-primary">View Registered Volunteers</a>
-    </div>
-{% endif %}
-{% if request.user.is_authenticated and request.user.Role == 'Org' %}
-    <div class="apply-button">
-        <a href="{% url 'selected_volunteers' event_id=event.Event_ID %}" class="btn btn-primary">View Selected Volunteers</a>
-    </div>
-{% endif %}
+                        <div class="apply-button-container left">
+                            <a href="{% url 'registered_volunteers' event_id=event.Event_ID %}" class="btn btn-primary apply-button">View Registered Volunteers</a>
+                        </div>
+                        <div class="apply-button-container right">
+                            <a href="{% url 'selected_volunteers' event_id=event.Event_ID %}" class="btn btn-primary apply-button">View Selected Volunteers</a>
+                        </div>
+                    {% endif %}
                     {% if request.user.is_authenticated and request.user.Role == 'Vol' %}
-    <a href="{% url 'register_for_event' event_id=event.Event_ID %}" class="btn btn-primary apply-button">Apply as Volunteer</a>
-{% endif %}
+                        <div class="apply-button-container">
+                            <a href="{% url 'register_for_event' event_id=event.Event_ID %}" class="btn btn-primary apply-button">Apply as Volunteer</a>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
