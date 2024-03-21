@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect, render
+from .forms import VolSignupForm
 from django.contrib import messages
 from django.contrib.auth.models import User  # Import Django's built-in User model
 
@@ -29,3 +30,19 @@ def volunteer_login(request):
         print("Email or password is missing in the form data.")
 
     return render(request, 'log.html')
+
+# signUp -----------------
+
+def vol_signup(request):
+    if request.method == 'POST':
+        form = VolSignupForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            print("Form is saved")
+            # Redirect to a success page or login page
+            return redirect('home')  # Adjust this to your actual login URL
+    else:
+        form = VolSignupForm()
+    return render(request, 'signup.html', {'form': form})
+
+

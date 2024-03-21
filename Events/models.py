@@ -1,6 +1,6 @@
 from django.db import models
 from Org.models import Org 
-
+from Volunteer.models import volunteer
 # Create your models here.
 class Events(models.Model):
     Event_ID = models.BigAutoField(primary_key=True,unique=True)
@@ -20,3 +20,7 @@ class Events(models.Model):
     Event_Status =models.CharField(choices = Event_type ,default = "COMING",max_length = 20) 
     def __str__(self):
         return self.Event_Name
+    
+class Registered_volunteers(models.Model):
+    Event=models.ForeignKey(Events,related_name="event",on_delete=models.CASCADE)
+    Volunteers=models.ForeignKey(volunteer,related_name="reg_vols", on_delete=models.CASCADE)

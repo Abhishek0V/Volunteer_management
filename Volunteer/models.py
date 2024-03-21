@@ -19,3 +19,10 @@ class volunteer(models.Model):
 
     def __str__(self):
         return self.Name
+
+class Notification(models.Model):
+    vol=models.OneToOneField(volunteer,related="volunter_model", on_delete=models.CASCADE)
+    text=models.CharField(max_length=60,null=True,blank=True)
+
+    def __str__(self):
+        return  f"{self.volunteer.vol.Name}"

@@ -10,4 +10,5 @@ from . import views
 urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('login/', views.volunteer_login, name='volunteer_login'),
+    path('signup/',views.vol_signup,name='Vol_signup')
 ]
