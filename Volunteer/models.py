@@ -21,7 +21,7 @@ class volunteer(models.Model):
         return self.Name
 
 class Notification(models.Model):
-    vol=models.OneToOneField(volunteer,related="volunter_model", on_delete=models.CASCADE)
+    vol=models.OneToOneField(volunteer,related_name="volunter_model", on_delete=models.CASCADE)
     text=models.CharField(max_length=60,null=True,blank=True)
 
     def __str__(self):
