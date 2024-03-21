@@ -24,5 +24,6 @@ class Events(models.Model):
 class Registered_volunteers(models.Model):
     Event=models.ForeignKey(Events,related_name="event",on_delete=models.CASCADE)
     Volunteers=models.ForeignKey(volunteer,related_name="reg_vols", on_delete=models.CASCADE)
+    Selected = models.BooleanField(default = False)
 
    

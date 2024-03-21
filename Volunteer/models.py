@@ -26,4 +26,4 @@ class Notification(models.Model):
     text=models.CharField(max_length=60,null=True,blank=True)
 
     def __str__(self):
-        return  f"{self.volunteer.vol.Name}"
+        return  f"{self.vol.Name}"

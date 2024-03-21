@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render, redirect
 
-from Volunteer.models import volunteer
+from Volunteer.models import Notification, volunteer
 from .models import Events, Registered_volunteers
 from .forms import EventForm
 
@@ -57,3 +57,39 @@ def register_for_event(request, event_id):
     # Assuming the user is a volunteer and a volunteer instance exists, proceed with registration
     Registered_volunteers.objects.create(Event=event, Volunteers=volunteer_instance)
     return redirect('home')
+
+def registered_volunteers(request, event_id):
+    event = Events.objects.get(Event_ID=event_id)
+    registered_volunteers = Registered_volunteers.objects.filter(Event=event)
+    
+    if request.method == 'POST':
+        selected_volunteers = request.POST.getlist('selected_volunteers[]')
+        for volunteer_id in selected_volunteers:
+            volunteer = Registered_volunteers.objects.get(pk=volunteer_id)
+            volunteer.Selected = True
+            volunteer.save()
+        return redirect('registered_volunteers', event_id=event_id)
+
+    return render(request, 'registered_volunteers.html', {'event': event, 'registered_volunteers': registered_volunteers})
+
+def selected_volunteers(request, event_id):
+    event = Events.objects.get(Event_ID=event_id)
+    selected_volunteers = Registered_volunteers.objects.filter(Event=event, Selected=True)
+    return render(request, 'selected_volunteers.html', {'event': event, 'selected_volunteers': selected_volunteers})
+
+def send_notification(request, event_id):
+    if request.method == 'POST':
+        notification_text = request.POST.get('notification_text')
+
+        event = Events.objects.get(Event_ID=event_id)
+
+        for registered_volunteer in Registered_volunteers.objects.filter(Event=event, Selected=True):
+            volunteer_instance = registered_volunteer.Volunteers
+            # Check if a notification already exists for this volunteer
+            existing_notification = Notification.objects.filter(vol=volunteer_instance).exists()
+            if not existing_notification:
+                Notification.objects.create(vol=volunteer_instance, text=notification_text)
+
+        return redirect('selected_volunteers', event_id=event_id)
+    else:
+        return render(request, 'selected_volunteers.html', {'event_id': event_id})

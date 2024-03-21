@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registered Volunteers</title>
+    <style>
+        .volunteer-card {
+            display: inline-block;
+            width: 200px; /* Adjust width as needed */
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .volunteer-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .volunteer-checkbox {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Registered Volunteers for {{ event.Event_Name }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% for registered_volunteer in registered_volunteers %}
+            <div class="volunteer-card">
+                <div class="volunteer-name">{{ registered_volunteer.Volunteers }}</div>
+                <div class="volunteer-checkbox">
+                    <input type="checkbox" name="selected_volunteers[]" value="{{ registered_volunteer.id }}">
+                </div>
+            </div>
+        {% endfor %}
+        <button type="submit">Save Selection</button>
+    </form>
+</body>
+</html>
