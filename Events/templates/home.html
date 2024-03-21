@@ -83,7 +83,14 @@
             margin: 0 auto;
             max-width: 140px; /* Adjust size as needed */
         }
-
+        .footerSection{
+            margin: 0 20rem;
+            display: block;
+        }
+        .footercontainer{
+            display: flex;
+            justify-content: space-between;
+        }
         .quick-line {
             margin-top: 20px;
             font-size: 13px;
@@ -98,8 +105,7 @@
             margin: 0 10px;
             margin-top: 20px;
             justify-content: center;
-            display: none;
-        }
+                    }
     </style>
 </head>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -193,6 +199,8 @@
         </div>
       </div>
     <footer class="footer" id="footer">
+        <div class="footerSection">
+        <div class="footercontainer">
         <div>
             <img src="logo.png" alt="Logo" class="footer-logo" />
             <p class="footer-description">HELPER</p>
@@ -203,12 +211,14 @@
             <p>About us</p>
             <p>Become volunteer</p>
         </div>
+    </div>
         <div class="social-icons">
             <a href="#"><img src="facebook.png" alt="Facebook" /></a>
             <a href="#"><img src="instagram.png" alt="Instagram" /></a>
             <a href="#"><img src="linkedin.png" alt="LinkedIn" /></a>
             <a href="#"><img src="twitter.png" alt="Twitter" /></a>
         </div>
+    </div>
     </footer>
 
 </body>
