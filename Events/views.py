@@ -16,7 +16,7 @@ def home(request):
 def events(request, pk):
     event = get_object_or_404(Events, Event_ID=pk)
     context = {'event': event}
-    return render(request, 'events.html', context)
+    return render(request, 'event.html', context)
 
 @login_required
 def create_event(request):
