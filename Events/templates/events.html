@@ -1,9 +1,166 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Event Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events</title>
     <style>
-        .banner {
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .navbar {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            width: 50px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .navbar-menu {
+            display: flex;
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        .navbar-menu a {
+            color: #000000;
+            text-decoration: none;
+            margin: 0 20px;
+        }
+
+        .login-button {
+            background-color: #fff;
+            color: #333;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .content {
+            flex: 1;
+            margin-bottom: auto; /* Adjust the margin to accommodate the footer's height */
+        }
+
+        .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            width:100%;
+             /* Initially hide the footer */
+        }
+
+        .footer.sticky {
+            position: fixed;
+            bottom: 0;
+            display: block; /* Display the footer when it becomes sticky */
+        }
+
+        .footer-logo {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .footer-description {
+            font-size: 15px;
+        }
+
+        .footer-image {
+            display: block;
+            margin: 0 auto;
+            max-width: 140px; /* Adjust size as needed */
+        }
+        .footerSection{
+            margin: 0 20rem;
+            display: block;
+        }
+        .footercontainer{
+            display: flex;
+            justify-content: space-between;
+        }
+        .quick-line {
+            margin-top: 20px;
+            font-size: 13px;
+        }
+
+        .social-icons {
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: #fff;
+            margin: 0 10px;
+            margin-top: 20px;
+            justify-content: center;
+                    }
+    </style>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  /* Custom CSS styles can be added here */
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-y: auto;
+  }
+
+  .content {
+    flex: 1;
+    min-height: calc(100vh - 120px);
+    overflow-y: auto;
+    margin-bottom: 0;
+    /* Adjust the value based on the height of the footer */
+  }
+
+  .card {
+    flex: 0 0 calc(40% - 25px);
+    margin: 10px;
+    border: none;
+    overflow: hidden;
+    position: relative;
+    height: 300px;
+    border-radius: 15px;
+    overflow-y: auto;
+
+  }
+
+  .card:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.40    ); /* Adjust the alpha value to control brightness */
+    z-index: 1;
+  }
+
+  .card-body {
+    position: relative;
+    z-index: 2;
+    color: white; /* Text color */
+  }
+
+  .btn-know-more {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 2;
+  }
+  .banner {
             background-image: url('{{ event.poster.url }}');
             background-size: cover;
             height: 400px; /* Increased height of the banner */
@@ -60,16 +217,35 @@
         /* Adjusted positioning for the left button container */
         left: calc(60% + 10px); /* Positioned halfway and adding margin */
         transform: translateX(-50%); /* Move back half of its own width */
-    }   
-    </style>
+    }
+</style>
 </head>
 <body>
+    <div class="navbar">
+        <div>
+            <img src="logo.png" alt="Logo" class="navbar-logo" />
+        </div>
+        <div class="navbar-menu">
+            <a href="/">Home</a>
+            <a href="/gallery">Gallery</a>
+            <a href="/contact">Contact</a>
+            <a href="/community/">Community</a>
+            {% if user.is_authenticated and user.vol_profile %}
+                <a href="/notifications">Notification</a>
+            {% endif %}
+        </div>
+        {% if user.is_authenticated %}
+    <a href="/volunteer/logout"><button class="login-button">Logout</button></a>
+{% else %}
+    <a href='/volunteer/login'><button class="login-button">Login</button></a>
+{% endif %}
+    </div>
     <div class="banner">
         <h1>{{ event.Event_Name }}</h1>
     </div>
     <div class="container">
-        <div class="row">
-            <div class="col-md-8">
+        <div>
+            <div>
                 <div class="event-details">
                     <h2>Volunteer for {{ event.Event_Name }} and Make a Difference</h2>
                     <div class="event-detail">
@@ -109,5 +285,28 @@
             </div>
         </div>
     </div>
+    <footer class="footer" id="footer">
+        <div class="footerSection">
+        <div class="footercontainer">
+        <div>
+            <img src="logo.png" alt="Logo" class="footer-logo" />
+            <p class="footer-description">HELPER</p>
+        </div>
+        <img src="gallery.png" alt="Center Image" class="footer-image" />
+        <div class="right-side">
+            <p class="quick-line">Quick line</p>
+            <p>About us</p>
+            <p>Become volunteer</p>
+        </div>
+    </div>
+        <div class="social-icons">
+            <a href="#"><img src="facebook.png" alt="Facebook" /></a>
+            <a href="#"><img src="instagram.png" alt="Instagram" /></a>
+            <a href="#"><img src="linkedin.png" alt="LinkedIn" /></a>
+            <a href="#"><img src="twitter.png" alt="Twitter" /></a>
+        </div>
+    </div>
+    </footer>
+
 </body>
 </html>

@@ -57,7 +57,7 @@
     .message-input {
       width: calc(100% - 70px);
       padding: 8px;
-      margin-top: 10px;
+      margin-top:60px 10px;
       border: 1px solid #ccc;
       border-radius: 5px 0 0 5px;
     }
@@ -93,7 +93,7 @@
          <div class="message-info">{{message.timestamp}}</div>
         {% if message.user == request.user %}
             <form action="{% url 'delete_message' message.id %}" method="post">
-                {% csrf_token %}
+             <!-- csrf -->
                     <button type="submit" class="delete-btn">delete</i></button>
             </form>
         {% endif %}
@@ -104,7 +104,7 @@
   </div>
   <div>
     <form method="POST" action="{% url 'send_message' %}">
-        {% csrf_token %}
+      
         <div class="dele">
             <input type="text" name="content" class="message-input" placeholder="Type your message...">
              <button type="submit" class="send-button">Send</button>
