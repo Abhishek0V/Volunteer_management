@@ -25,5 +25,10 @@ class Registered_volunteers(models.Model):
     Event=models.ForeignKey(Events,related_name="event",on_delete=models.CASCADE)
     Volunteers=models.ForeignKey(volunteer,related_name="reg_vols", on_delete=models.CASCADE)
     Selected = models.BooleanField(default = False)
-
+    
+    def __str__(self):
+        return f"{self.Volunteers.Name}"
+    
+class gallery(models.Model):
+      img=models.ImageField(upload_to="gallery/",blank=True,null=True)
    

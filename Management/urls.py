@@ -32,6 +32,7 @@ urlpatterns = [
     path('org/',include("Org.urls")),
     path('volunteer/',include("Volunteer.urls")),
     path('',include("Events.urls")),
+    path("community/",include("communityspace.urls"))
     
     
 ]
