@@ -2,264 +2,84 @@
 
 {% block content %}
 <style>
+    /* Body styles */
     body {
-        margin: 0;
         font-family: Arial, sans-serif;
-        display: flex;
-        min-height: 100vh;
-        flex-direction: column;
-    }
-
-    .navbar {
-        background-color: #ffffff;
-        color: #000000;
-        padding: 10px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .navbar-logo {
-        width: 50px;
-        height: auto;
-        margin-right: 20px;
-    }
-
-    .navbar-menu {
-        display: flex;
-        flex-grow: 1;
-        justify-content: center;
-    }
-
-    .navbar-menu a {
-        color: #000000;
-        text-decoration: none;
-        margin: 0 20px;
-    }
-
-    .login-button {
-        background-color: #fff;
-        color: #333;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    .content {
-        flex: 1;
-        margin-bottom: auto; /* Adjust the margin to accommodate the footer's height */
-    }
-
-    .footer {
-        background-color: #333;
-        color: #fff;
-        padding: 20px 0;
-        text-align: center;
-        width:100%;
-         /* Initially hide the footer */
-    }
-
-    .footer.sticky {
-        position: fixed;
-        bottom: 0;
-        display: block; /* Display the footer when it becomes sticky */
-    }
-
-    .footer-logo {
-        display: block;
-        margin-bottom: 10px;
-    }
-
-    .footer-description {
-        font-size: 15px;
-    }
-
-    .footer-image {
-        display: block;
-        margin: 0 auto;
-        max-width: 140px; /* Adjust size as needed */
-    }
-    .footerSection{
-        margin: 0 20rem;
-        display: block;
-    }
-    .footercontainer{
-        display: flex;
-        justify-content: space-between;
-    }
-    .quick-line {
-        margin-top: 20px;
-        font-size: 13px;
-    }
-
-    .social-icons {
-        margin-top: 20px;
-    }
-
-    .social-icons a {
-        color: #fff;
-        margin: 0 10px;
-        margin-top: 20px;
-        justify-content: center;
-                }
-</style>
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-<style>
-/* Custom CSS styles can be added here */
-.card-container {
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
-overflow-y: auto;
-}
-
-.content {
-flex: 1;
-min-height: calc(100vh - 120px);
-overflow-y: auto;
-margin-bottom: 0;
-/* Adjust the value based on the height of the footer */
-}
-
-.card {
-flex: 0 0 calc(40% - 25px);
-margin: 10px;
-border: none;
-overflow: hidden;
-position: relative;
-height: 300px;
-border-radius: 15px;
-overflow-y: auto;
-
-}
-
-.card:before {
-content: '';
-position: absolute;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0, 0, 0, 0.40    ); /* Adjust the alpha value to control brightness */
-z-index: 1;
-}
-
-.card-body {
-position: relative;
-z-index: 2;
-color: white; /* Text color */
-}
-
-.btn-know-more {
-position: absolute;
-bottom: 20px;
-left: 20px;
-z-index: 2;
-}
-.banner {
-        background-image: url('{{ event.poster.url }}');
-        background-size: cover;
-        height: 400px; /* Increased height of the banner */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        text-align: center;
-        font-size: 24px;
-        overflow: hidden;
-    }
-    .event-details {
-        position: relative; /* Relative positioning for the card */
-        width: 60%; /* Adjusted width of the card */
-        margin: 20px auto;
+        background-color: #f8f9fa;
+        margin: 0;
         padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        background-color: rgb(196, 199, 204);
     }
-    .apply-button {
+
+    /* Header styles */
+    h1 {
+        color: #007bff;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* Table styles */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    th {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+    /* Button styles */
+    button {
+        background-color: #007bff;
+        color: #fff;
         border: none;
         padding: 10px 20px;
-        background-color: #007bff;
-        color: white;
         border-radius: 5px;
         cursor: pointer;
         transition: background-color 0.3s;
-        text-decoration: none;
     }
-    .apply-button:hover {
+
+    button:hover {
         background-color: #0056b3;
     }
-    .event-detail-heading {
-        font-weight: bold;
-        margin-top: 10px;
-    }
-    .event-detail {
-        margin-bottom: 10px;
-    }
-    .apply-button-container {
-    /* Adjusted positioning for the button container */
-    position: absolute;
-    bottom: 20px;
-}
-
-.apply-button-container.right {
-    /* Adjusted positioning for the right button container */
-    right: 20px;
-}
-
-.apply-button-container.left {
-    /* Adjusted positioning for the left button container */
-    left: calc(60% + 10px); /* Positioned halfway and adding margin */
-    transform: translateX(-50%); /* Move back half of its own width */
-}
 </style>
-<div class="banner">
-    <h1>{{ event.Event_Name }}</h1>
-</div>
-<div class="container">
-    <div>
-        <div>
-            <div class="event-details">
-                <h2>Volunteer for {{ event.Event_Name }} and Make a Difference</h2>
-                <div class="event-detail">
-                    <h3 class="event-detail-heading">Event Description:</h3>
-                    <p>{{ event.Event_Description }}</p>
-                </div>
-                <div class="event-detail">
-                    <h3 class="event-detail-heading">Date:</h3>
-                    <p>{{ event.Event_Date|date:"D, d M Y" }}</p>
-                </div>
-                <div class="event-detail">
-                    <h3 class="event-detail-heading">Time:</h3>
-                    <p>{{ event.Event_Date|time:"h:i A" }}</p>
-                </div>
-                <div class="event-detail">
-                    <h3 class="event-detail-heading">Location:</h3>
-                    <p>{{ event.Location }}</p>
-                </div>
-                <div class="event-detail">
-                    <h3 class="event-detail-heading">Number of Volunteers:</h3>
-                    <p>{{ event.Number_of_Volunteer }}</p>
-                </div>
-                {% if request.user.is_authenticated and request.user.Role == 'Org' %}
-                    <div class="apply-button-container left">
-                        <a href="{% url 'registered_volunteers' event_id=event.Event_ID %}" class="btn btn-primary apply-button">View Registered Volunteers</a>
-                    </div>
-                    <div class="apply-button-container right">
-                        <a href="{% url 'selected_volunteers' event_id=event.Event_ID %}" class="btn btn-primary apply-button">View Selected Volunteers</a>
-                    </div>
-                {% endif %}
-                {% if request.user.is_authenticated and request.user.Role == 'Vol' %}
-                    <div class="apply-button-container">
-                        <a href="{% url 'register_for_event' event_id=event.Event_ID %}" class="btn btn-primary apply-button">Apply as Volunteer</a>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-    </div>
+<div>
+    <h1>Selected Volunteers for {{ event.Event_Name }}</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <!-- Add more details as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for volunteer in selected_volunteers %}
+                <tr>
+                    <td>{{ volunteer.Volunteers.Name }}</td>
+                    <td>{{ volunteer.Volunteers.Age }}</td>
+                    <td>{{ volunteer.Volunteers.Gender }}</td>
+                    <!-- Add more details as needed -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <form id="send-notification-form" method="post" action="{% url 'send_notification' event_id=event.Event_ID %}">
+        {% csrf_token %}
+        <input type="hidden" name="notification_text" value="You have been successfully selected as a Volunteer for the '{{ event.Event_Name }}' event. Happy Volunteering!!">
+        <button type="submit">Send Notification</button>
+    </form>
 </div>
 
 {% endblock%}

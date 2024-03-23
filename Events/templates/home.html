@@ -1,10 +1,13 @@
+{% load static %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Footer Example</title>
-    <style>
+    <title>Home</title>
+    <style> 
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -14,7 +17,7 @@
         }
 
         .navbar {
-            background-color: #ffffff;
+            background-color: #f7f2d5;
             color: #000000;
             padding: 10px;
             display: flex;
@@ -55,8 +58,8 @@
         }
 
         .footer {
-            background-color: #333;
-            color: #fff;
+            background-color: #f7f2d5;
+            color: #000000;
             padding: 20px 0;
             text-align: center;
             width:100%;
@@ -132,7 +135,7 @@
     border: none;
     overflow: hidden;
     position: relative;
-    height: 300px;
+    height: 350px;
     border-radius: 15px;
     overflow-y: auto;
 
@@ -166,7 +169,8 @@
 <body>
     <div class="navbar">
         <div>
-            <img src="logo.png" alt="Logo" class="navbar-logo" />
+            <img src="{% static 'images/logo.png' %}" alt="🫱🏻‍🫲🏾" class="navbar-logo" />
+
         </div>
         <div class="navbar-menu">
             <a href="#">Home</a>
@@ -178,13 +182,14 @@
             {% endif %}
         </div>
         {% if user.is_authenticated %}
-    <a href="/volunteer/logout"><button class="login-button">Logout</button></a>
+    <a href="/volunteer/profile"><button class="login-button">🧑‍🦰</button></a>
 {% else %}
     <a href='/volunteer/login'><button class="login-button">Login</button></a>
 {% endif %}
     </div>
+    <hr>
     <div class="container">
-        <h1>Welcome</h1>
+        
         <hr>
         <div class="card-container">
           {% for event in events %}

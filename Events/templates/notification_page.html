@@ -4,15 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notifications</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 3px;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        .no-notifications {
+            text-align: center;
+            color: #999;
+            font-style: italic;
+        }
+    </style>
 </head>
 <body>
-    <h1>Notifications</h1>
-    <ul>
-        {% for notification in notifications %}
-            <li>{{ notification.text }}</li>
-        {% empty %}
-            <li>No notifications available</li>
-        {% endfor %}
-    </ul>
+    <div class="container">
+        <h1>Notifications</h1>
+        <ul id="notifications-list">
+            <!-- Notifications will be dynamically added here -->
+        </ul>
+        <p class="no-notifications" id="no-notifications">No notifications</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Fetch notifications JSON data
+            $.getJSON('/notifications/', function(data) {
+                var notificationsList = $('#notifications-list');
+                var noNotificationsMessage = $('#no-notifications');
+
+                // Check if there are notifications
+                if (data.length > 0) {
+                    noNotificationsMessage.hide();
+                    // Iterate over notifications and add them to the list
+                    $.each(data, function(index, notification) {
+                        notificationsList.append('<li>' + notification.text + '</li>');
+                    });
+                } else {
+                    // If no notifications, display a message
+                    noNotificationsMessage.show();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

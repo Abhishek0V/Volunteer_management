@@ -1,21 +1,91 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Selected Volunteers</title>
-</head>
-<body>
+{% extends 'main.html'%}
+
+{% block content %}
+<style>
+    /* Body styles */
+    .footer{
+        display: none;
+    }
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 20px;
+    }
+
+    /* Header styles */
+    h1 {
+        color: #007bff;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    /* Table styles */
+    table {
+        width: 80%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    th {
+        background-color: #007bff;
+        color: #fff;
+    }
+    .send_notification{
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-left: 80%;
+    }
+
+    /* Button styles */
+    
+
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
+<div><hr>
     <h1>Selected Volunteers for {{ event.Event_Name }}</h1>
-    <ul>
-        {% for volunteer in selected_volunteers %}
-            <li>{{ volunteer.Volunteers.Name }} (Age: {{ volunteer.Volunteers.Age }}, Gender: {{ volunteer.Volunteers.Gender }})</li>
-            <!-- Add more details as needed -->
-        {% endfor %}
-    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <!-- Add more details as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for volunteer in selected_volunteers %}
+                <tr>
+                    <td>{{ volunteer.Volunteers.Name }}</td>
+                    <td>{{ volunteer.Volunteers.Age }}</td>
+                    <td>{{ volunteer.Volunteers.Gender }}</td>
+                    <!-- Add more details as needed -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
     <form id="send-notification-form" method="post" action="{% url 'send_notification' event_id=event.Event_ID %}">
         {% csrf_token %}
         <input type="hidden" name="notification_text" value="You have been successfully selected as a Volunteer for the '{{ event.Event_Name }}' event. Happy Volunteering!!">
-        <button type="submit">Send Notification</button>
+        <button type="submit" class="send_notification">Send Notification</button>
     </form>
-</body>
-</html>
+</div>
+
+{% endblock%}

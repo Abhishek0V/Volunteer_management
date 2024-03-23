@@ -19,29 +19,30 @@
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #9eb4fd;
         }
 
         /* Smaller width for serial number column */
         .serial-number {
-            width: 50px;
+            width: 100px;
         }
 
         /* Checkbox styles */
         .check-all {
             margin-bottom: 10px;
+            margin-left: 1000px; /* Adjusted left margin */
         }
 
         /* Submit button styles */
         .submit-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
+            position: relative; /* Changed to relative positioning */
+            float: right; /* Floated to the right */
+            margin-top: 20px; /* Added margin to the top */
         }
 
         /* Align the "Check All" checkbox */
         .check-all-label {
-            margin-left: 10px;
+            margin-left: 0; /* Adjusted left margin */
         }
     </style>
 </head>
@@ -51,7 +52,7 @@
         <form method="post">
             {% csrf_token %}
             <div class="check-all form-group">
-                <input type="checkbox" id="checkAll"> <label class="check-all-label" for="checkAll">Check All</label>
+                <input type="checkbox" id="checkAll"> <label class="check-all-label" for="checkAll"><b>Select All</b></label>
             </div>
             <table class="table">
                 <thead>

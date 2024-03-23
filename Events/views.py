@@ -2,6 +2,8 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
+from django.template.loader import render_to_string
+
 
 from Volunteer.models import Notification, volunteer
 from .models import Events, Registered_volunteers
@@ -16,7 +18,7 @@ def home(request):
 def events(request, pk):
     event = get_object_or_404(Events, Event_ID=pk)
     context = {'event': event}
-    return render(request, 'event.html', context)
+    return render(request, 'events.html', context)
 
 @login_required
 def create_event(request):
@@ -79,6 +81,23 @@ def selected_volunteers(request, event_id):
     selected_volunteers = Registered_volunteers.objects.filter(Event=event, Selected=True)
     return render(request, 'selected_volunteers.html', {'event': event, 'selected_volunteers': selected_volunteers})
 
+
+
+def notification_page(request):
+    if request.user.is_authenticated and hasattr(request.user, 'vol_profile'):
+        # Retrieve notifications for the currently signed-in volunteer
+        notifications = Notification.objects.filter(vol=request.user.vol_profile)
+        notifications_data = [{'text': notification.text} for notification in notifications]
+
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse(notifications_data, safe=False)
+        else:
+            # If it's not AJAX, render HTML template
+            return render(request, 'notification_page.html', {'notifications': notifications_data})
+    else:
+        # Handle the case when the user is not authenticated or not a volunteer
+        return render(request, 'notification_page.html', {'notifications': []})
+    
 def send_notification(request, event_id):
     if request.method == 'POST':
         notification_text = request.POST.get('notification_text')
@@ -103,13 +122,3 @@ def get_notifications(request):
         data = [{'text': notification.text} for notification in notifications]
         return JsonResponse(data, safe=False)
     return JsonResponse([], safe=False)  # Return empty list if user is not logged in or not a volunteer
-
-
-def notification_page(request):
-    if request.user.is_authenticated and hasattr(request.user, 'volunteer'):
-        # Retrieve notifications for the currently signed-in volunteer
-        notifications = Notification.objects.filter(vol=request.user.volunteer)
-        return render(request, 'notification_page.html', {'notifications': notifications})
-    else:
-        # Handle the case when the user is not authenticated or not a volunteer
-        return render(request, 'notification_page.html', {'notifications': []})

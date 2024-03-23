@@ -1,12 +1,30 @@
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
+
+from Volunteer.models import volunteer
 from .forms import VolSignupForm
 from django.contrib import messages
 from django.contrib.auth.models import User  # Import Django's built-in User model
 
 def profile(request):
-    return render(request, 'profile.html')
+    # Assuming the user is logged in, you can get the current user
+    current_user = request.user
+    
+    # Assuming you have a one-to-one relationship between User and volunteer
+    # You can adjust the logic if needed based on your actual data structure
+    try:
+        # Attempt to retrieve the volunteer profile associated with the user
+        volunteer_profile = current_user.vol_profile
+    except volunteer.DoesNotExist:
+        # Handle the case where the user doesn't have a volunteer profile
+        volunteer_profile = None
+    
+    context = {
+        'user': current_user,
+        'volunteer_profile': volunteer_profile,
+    }
+    return render(request, 'vol_profile.html', context)
 
 def volunteer_login(request):
     error_message = None
