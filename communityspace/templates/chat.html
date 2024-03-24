@@ -1,115 +1,134 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Message Room</title>
- 
-  <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message System</title>
+<style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f2f2f2;
-      margin: 0;
-      padding: 0;
-    }
-
-    .container {
-      max-width: 650px;
-      margin: 20px auto;
-    }
-
-    .message {
-    max-height: 400px; /* Set maximum height for the container */
-     overflow-y: auto; 
-    background-color: #e0e0e0;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-    }
-
-    .sender {
-      font-weight: bold;
-      color: #333;
-    }
-
-    .received {
-      background-color: #d9edf7;
-    }
-
-    .content {
-      margin-top: 5px;
-    }
-.delete-btn{
-    
-    padding: 5px 10px;
-    background-color: #ff5e5e;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    height: 100vh;
+}
+.image-container {
+    position:center;
+    background-size:cover;
+    background-image:url("vol.jpg");
+    width: 40vw;
+    padding: 20px;
+}
+.message-container {
+    flex: 1;
+    background-color: #fbf6f6;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.message-input-container {
+    display: flex;
+    align-items: center;
+}
+.message-input {
+    width:38vw;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #1082fba3;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.send-button {
+    padding: 10px 20px;
+    background-color: #38a6e1;
     color: #fff;
     border: none;
-    border-radius: 3px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.send-button:hover {
+    background-color: #0056b3;
+}
+.message-area {
+    width: 80%;
+    height:550px; /* Adjust height as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.sender {
+font-weight: bold;
+color: #333;
+}
+.message-info {
+font-size: 12px;
+color: #777;
+
+text-align:right;
+}
+.content {
+margin-top: 5px;
+}
+.received {
+position: relative;
+background-color: #d9edf7;
+padding: 10px;
+margin-bottom: 5px;
+border-radius: 5px;
+/* Maintain border-radius */
+position: relative;
+overflow: hidden;
+}
+
+.delete-btn{
+position: absolute;
+top: 5px;
+right: 5px;
+padding: 4px 8px;
+background-color: #b7d0e8;
+color: #fff;
+border: none;
+border-radius: 3px;
+cursor: pointer;
 }
 
 .delete-btn:hover{
-    background-color: #d34545;
-    
+background-color: #d34545;
+
 }
-
-    .message-input {
-      width: calc(100% - 70px);
-      padding: 8px;
-      margin-top:60px 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px 0 0 5px;
-    }
-    .message-info {
-      font-size: 12px;
-      color: #777;
-      
-      text-align:right;
-    }
-    .send-button {
-      width: 70px;
-      padding: 8px;
-      margin-top: 10px;
-      border: none;
-      background-color: #007bff;
-      color: #fff;
-      border-radius: 0 5px 5px 0;
-      cursor: pointer;
-    }
-
-    .send-button:hover {
-      background-color: #0056b3;
-    }
-  </style>
-</head>
+</style>
 <body>
-  <div class="container">
-    <div class="message">
-    {% for message in messages %}
-    <div class="message received">
+    <div class="image-container">
+    </div>
+    <div class="message-container">
+        <div class="message-area">
+            {% for message in messages %}
+    <div class="received">
          <div class="sender">{{ message.user.email}}</div>
          <div class="content"> {{ message.message_text }}</div>
          <div class="message-info">{{message.timestamp}}</div>
         {% if message.user == request.user %}
             <form action="{% url 'delete_message' message.id %}" method="post">
-             <!-- csrf -->
-                    <button type="submit" class="delete-btn">delete</i></button>
+                {% csrf_token %}
+                    <button type="submit" class="delete-btn">X</i></button>
             </form>
         {% endif %}
-    
     </div>
     {% endfor %}
-    <!-- Add more messages here -->
-  </div>
-  <div>
-    <form method="POST" action="{% url 'send_message' %}">
-      
-        <div class="dele">
-            <input type="text" name="content" class="message-input" placeholder="Type your message...">
-             <button type="submit" class="send-button">Send</button>
         </div>
-    </form>
-  </div>
+        <div class="message-input-container">
+            <form action="{% url 'send_message' %}" method="post">
+                {% csrf_token %}
+                <input type="text" name="content" class="message-input" placeholder="Type your message...">
+            <button  type="submit"  class="send-button">Send</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
