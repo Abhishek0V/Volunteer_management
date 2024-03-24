@@ -193,12 +193,11 @@
         }
     
         .apply-button-container .apply-button {
-            margin-left: 10px; /* Added margin between buttons */
+            margin-left: 400px; /* Added margin between buttons */
         }
 
         /* Adjusted the position of the buttons */
         .apply-button-container.left {
-            left: 550px;
             right: auto;
         }
     </style>
@@ -252,12 +251,12 @@
                         <h3 class="event-detail-heading">Number of Volunteers:</h3>
                         <p>{{ event.Number_of_Volunteer }}</p>
                     </div>
-                    {% if request.user.is_authenticated and request.user.Role == 'Org' %}
+                    {% if is_org_user %}
                         <div class="apply-button-container left">
-                            <a href="{% url 'registered_volunteers' event_id=event.Event_ID %}" class="btn btn-primary apply-button">View Registered Volunteers</a>
+                        <a href="{% url 'registered_volunteers' event_id=event.Event_ID %}" class="btn btn-primary apply-button">View Registered Volunteers</a>
                         </div>
                         <div class="apply-button-container right">
-                            <a href="{% url 'selected_volunteers' event_id=event.Event_ID %}" class="btn btn-primary apply-button">View Selected Volunteers</a>
+                        <a href="{% url 'selected_volunteers' event_id=event.Event_ID %}" class="btn btn-primary apply-button">View Selected Volunteers</a>
                         </div>
                     {% endif %}
                     {% if request.user.is_authenticated and request.user.Role == 'Vol' %}

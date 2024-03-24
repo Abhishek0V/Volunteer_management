@@ -5,137 +5,139 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Message System</title>
-<style>
-    body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    display: flex;
-    height: 100vh;
-}
-.image-container {
-    position:center;
-    background-size:cover;
-    background-image:url("vol.jpg");
-    width: 43vw;
- 
-}
-img{
-    width: 43vw;
-    height:100vh;
-
-}
-.message-container {
-    flex: 1;
-    background-color: #fbf6f6;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.message-input-container {
-    display: flex;
-    align-items: center;
-}
-.message-input {
-    width:38vw;
-    padding: 10px;
-    margin-right: 10px;
-    border: 1px solid #1082fba3;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-.send-button {
-    padding: 10px 20px;
-    background-color: #38a6e1;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-.send-button:hover {
-    background-color: #0056b3;
-}
-.message-area {
-    width: 80%;
-    height:560px; /* Adjust height as needed */
-    overflow-y: auto; /* Enable vertical scrolling */
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-.sender {
-font-weight: bold;
-color: #333;
-}
-.message-info {
-font-size: 12px;
-color: #777;
-
-text-align:right;
-}
-.content {
-margin-top: 9px;
-}
-.received {
-height:10vh;
-position: relative;
-background-color: #d9edf7;
-padding: 10px;
-margin-bottom: 5px;
-border-radius: 5px;
-/* Maintain border-radius */
-position: relative;
-overflow: hidden;
-}
-
-.delete-btn{
-position: absolute;
-
-top: 5px;
-right: 5px;
-padding: 4px 8px;
-background-color: #b7d0e8;
-color: #fff;
-border: none;
-border-radius: 3px;
-cursor: pointer;
-}
-
-.delete-btn:hover{
-background-color: #d34545;
-
-}
-</style>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            flex: 1;
+            width: 100%;
+        }
+        .image-container {
+            background-size: cover;
+            background-image: url("vol.jpg");
+            width: 33.33%;
+        }
+        img {
+            width: 100%;
+            height: 100vh;
+        }
+        .message-container {
+            background-color: #fbf6f6;
+            padding: 20px;
+            width: 66.67%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+        }
+        .message-input-container {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .message-input {
+            width: 70%;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #1082fba3;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .send-button {
+            padding: 10px 20px;
+            background-color: #38a6e1;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .send-button:hover {
+            background-color: #0056b3;
+        }
+        .message-area {
+            width: 100%;
+            height: calc(100vh - 200px); /* Adjust height */
+            overflow-y: auto;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .received {
+            position: relative;
+            background-color: #d9edf7;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .sender {
+            font-weight: bold;
+            color: #333;
+        }
+        .message-info {
+            font-size: 12px;
+            color: #777;
+            text-align: right;
+        }
+        .content {
+            margin-top: 9px;
+        }
+        .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            padding: 4px 8px;
+            background-color: #b7d0e8;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background-color: #d34545;
+        }
+    </style>
+</head>
 <body>
-    <div class="image-container">
-        <img src="{% static 'community/vol.jpg' %}" alt="">
-    </div>
-    <div class="message-container">
-        <div class="message-area">
-            {% for message in messages %}
-    <div class="received">
-         <div class="sender">{{ message.user.email}}</div>
-         <div class="content"> {{ message.message_text }}</div>
-         <div class="message-info">{{message.timestamp}}</div>
-        {% if message.user == request.user %}
-            <form action="{% url 'delete_message' message.id %}" method="post">
-                {% csrf_token %}
-                    <button type="submit" class="delete-btn">X</i></button>
-            </form>
-        {% endif %}
-    </div>
-    {% endfor %}
+    {% include 'navbar.html' %}
+    <hr>
+    <div class="container">
+        <div class="image-container">
+            <img src="{% static 'community/vol.jpg' %}" alt="">
         </div>
-        <div class="message-input-container">
-            <form action="{% url 'send_message' %}" method="post">
-                {% csrf_token %}
-                <input type="text" name="content" class="message-input" placeholder="Type your message...">
-            <button  type="submit"  class="send-button">Send</button>
-            </form>
+        <div class="message-container">
+            <div class="message-area">
+                {% for message in messages %}
+                    <div class="received">
+                        <div class="sender">{{ message.user.email}}</div>
+                        <div class="content"> {{ message.message_text }}</div>
+                        <div class="message-info">{{message.timestamp}}</div>
+                        {% if message.user == request.user %}
+                            <form action="{% url 'delete_message' message.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="delete-btn">X</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="message-input-container">
+                <form action="{% url 'send_message' %}" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="content" class="message-input" placeholder="Type your message...">
+                    <button type="submit" class="send-button">Send</button>
+                </form>
+            </div>
         </div>
     </div>
 </body>

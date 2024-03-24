@@ -1,55 +1,66 @@
+{% load static %}
 <style>
-.login-button {
-        background-color: #fff;
-        color: #333;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 4px;
-        cursor: pointer;
-}
 .navbar {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  background-color: #4EABBD;
+  color: #000000;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  .navbar-logo {
-    width: 50px;
-    height: auto;
-    margin-right: 20px;
-  }
+.navbar-logo {
+  width: 50px;
+  height: auto;
+  margin-right: 20px;
+}
 
-  .navbar-menu {
-    display: flex;
-    flex-grow: 1;
-    justify-content: center;
-  }
+.navbar-menu {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+}
 
-  .navbar-menu a {
-    color: #fff;
-    text-decoration: none;
-    margin: 0 20px;
-  }
+.navbar-menu a {
+  color: #000000;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 0 20px;
+}
+
+.login-button {
+  background-color: #fff;
+  color: #333;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
 </style>
 
 <div class="navbar">
-    <div>
-      <img src="logo.png" alt="Logo" class="navbar-logo" />
-    </div>
-    <div class="navbar-menu">
-      <a href="#">Home</a>
-      <a href="#">Gallery</a>
-      <a href="#">About</a>
-      <a href="#">Contact</a>
-    </div>
-    <a href="/volunteer/login">
-      {% if request.user.is_authenticated %}
-      <a class="login-button" href="/volunteer/logout">Logout</a>
-  {% else %}
-      <a class="login-button" href="/volunteer/login">Login</a>
-  {% endif %}
-    </a>
+  <div>
+      <img src="{% static 'home/logo.png' %}" alt="🫱🏻‍🫲🏾" class="navbar-logo" />
+
   </div>
+  <div class="navbar-menu">
+      <a href="/">Home</a>
+      {% if user.is_authenticated and user.org_profile %}
+          <a href="/org/dashboard">Dashboard</a>
+      {% endif %}
+      <a href="/gallery">Gallery</a>
+      <a href="/community">Community</a>
+      <a href="#">Contact</a>
+      {% if user.is_authenticated and user.vol_profile %}
+          <a href="/notifications">Notification</a>
+      {% endif %}
+      
+  </div>
+  {% if user.is_authenticated and user.org_profile%}
+  <a href="/volunteer/logout"><button class="login-button">Logout</button></a>
+  {% elif user.is_authenticated and user.vol_profile %}
+  <a href='/volunteer/profile'><button class="login-button">Profile</button></a>
+  {% else %}
+  <a href='/volunteer/login'><button class="login-button">Login</button></a>
+  {% endif %}
+</div>

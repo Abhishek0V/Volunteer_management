@@ -209,16 +209,22 @@
 
         </div>
         <div class="navbar-menu">
-            <a href="#">Home</a>
+            <a href="/">Home</a>
+            {% if user.is_authenticated and user.org_profile %}
+                <a href="/org/dashboard">Dashboard</a>
+            {% endif %}
             <a href="/gallery">Gallery</a>
             <a href="/community">Community</a>
             <a href="#">Contact</a>
             {% if user.is_authenticated and user.vol_profile %}
                 <a href="/notifications">Notification</a>
             {% endif %}
+            
         </div>
-        {% if user.is_authenticated %}
-    <a href="/volunteer/profile"><button class="login-button">🧑‍🦰</button></a>
+        {% if user.is_authenticated and user.org_profile%}
+    <a href="/volunteer/logout"><button class="login-button">Logout</button></a>
+    {% elif user.is_authenticated and user.vol_profile %}
+    <a href='/volunteer/profile'><button class="login-button">Profile</button></a>
 {% else %}
     <a href='/volunteer/login'><button class="login-button">Login</button></a>
 {% endif %}
