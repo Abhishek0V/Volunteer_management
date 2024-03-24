@@ -17,7 +17,7 @@
         }
 
         .navbar {
-            background-color: #f7f2d5;
+            background-color: #4EABBD;
             color: #000000;
             padding: 10px;
             display: flex;
@@ -40,6 +40,7 @@
         .navbar-menu a {
             color: #000000;
             text-decoration: none;
+            font-weight: bold;
             margin: 0 20px;
         }
 
@@ -58,7 +59,7 @@
         }
 
         .footer {
-            background-color: #f7f2d5;
+            background-color: #4EABBD;
             color: #000000;
             padding: 20px 0;
             text-align: center;
@@ -163,13 +164,48 @@
     bottom: 20px;
     left: 20px;
     z-index: 2;
+    background-color: #4EABBD;
+    color: black;
   }
+  .banner {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .banner img {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: auto;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out; /* Transition for opacity */
+            transition: transform 0.5s ease-in-out;
+            transform: translateX(-100%);
+        }
+        
+        .banner img.active {
+            opacity: 1;
+            transform: translateX(0%);
+        }
+        .head{
+            text-align: center;
+            font-size: 50px;
+            font-weight: 700;
+            margin-top: 20px;
+        
+        }
+        .right-side{
+            justify-content: right;
+        }
+        
 </style>
 
 <body>
     <div class="navbar">
         <div>
-            <img src="{% static 'images/logo.png' %}" alt="🫱🏻‍🫲🏾" class="navbar-logo" />
+            <img src="{% static 'home/logo.png' %}" alt="🫱🏻‍🫲🏾" class="navbar-logo" />
 
         </div>
         <div class="navbar-menu">
@@ -188,6 +224,8 @@
 {% endif %}
     </div>
     <hr>
+    <img src="{% static 'home/learn.svg' %}" alt="Image 1" id="image1">
+    <h1 class="head">Events</h1>
     <div class="container">
         
         <hr>
@@ -207,24 +245,24 @@
         <div class="footerSection">
         <div class="footercontainer">
         <div>
-            <img src="logo.png" alt="Logo" class="footer-logo" />
+            <img src="{% static 'home/logo.png' %}" alt="Logo" class="footer-logo" />
             <p class="footer-description">HELPER</p>
         </div>
         <img src="gallery.png" alt="Center Image" class="footer-image" />
         <div class="right-side">
-            <p class="quick-line">Quick line</p>
+            <p>Quick line</p>
             <p>About us</p>
             <p>Become volunteer</p>
         </div>
     </div>
         <div class="social-icons">
-            <a href="#"><img src="facebook.png" alt="Facebook" /></a>
-            <a href="#"><img src="instagram.png" alt="Instagram" /></a>
-            <a href="#"><img src="linkedin.png" alt="LinkedIn" /></a>
-            <a href="#"><img src="twitter.png" alt="Twitter" /></a>
+            <a href="https://facebook.com"><img src="{% static 'home/facebook.png' %}" alt="Facebook" /></a>
+            <a href="https://instagram.com"><img src="{% static 'home/instagram.png' %}" alt="Instagram" /></a>
+            <a href="https://linkedin.com"><img src="{% static 'home/linkedin.png' %}" alt="LinkedIn" /></a>
+            <a href="https://twitter.com"><img src="{% static 'home/twitter.png' %}" alt="Twitter" /></a>
         </div>
     </div>
     </footer>
-
+    
 </body>
 </html>

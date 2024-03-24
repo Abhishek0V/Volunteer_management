@@ -1,0 +1,16 @@
+<!-- org/templates/org/org_profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ org.Org_Name }} Profile</title>
+</head>
+<body>
+    <h1>{{ org.Org_Name }} Profile</h1>
+    <p><strong>Organization ID:</strong> {{ org.Org_ID }}</p>
+    <p><strong>Location:</strong> {{ org.Location }}</p>
+    <p><strong>Verified:</strong> {% if org.verified %}Yes{% else %}No{% endif %}</p>
+    <img src="{{ org.profile.url }}" alt="Organization Profile Image">
+</body>
+</html>
