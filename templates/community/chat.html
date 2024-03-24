@@ -1,4 +1,4 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,8 +17,13 @@
     position:center;
     background-size:cover;
     background-image:url("vol.jpg");
-    width: 40vw;
-    padding: 20px;
+    width: 43vw;
+ 
+}
+img{
+    width: 43vw;
+    height:100vh;
+
 }
 .message-container {
     flex: 1;
@@ -54,7 +59,7 @@
 }
 .message-area {
     width: 80%;
-    height:550px; /* Adjust height as needed */
+    height:560px; /* Adjust height as needed */
     overflow-y: auto; /* Enable vertical scrolling */
     padding: 10px;
     margin-bottom: 10px;
@@ -73,9 +78,10 @@ color: #777;
 text-align:right;
 }
 .content {
-margin-top: 5px;
+margin-top: 9px;
 }
 .received {
+height:10vh;
 position: relative;
 background-color: #d9edf7;
 padding: 10px;
@@ -88,6 +94,7 @@ overflow: hidden;
 
 .delete-btn{
 position: absolute;
+
 top: 5px;
 right: 5px;
 padding: 4px 8px;
@@ -105,6 +112,7 @@ background-color: #d34545;
 </style>
 <body>
     <div class="image-container">
+        <img src="{% static 'community/vol.jpg' %}" alt="">
     </div>
     <div class="message-container">
         <div class="message-area">

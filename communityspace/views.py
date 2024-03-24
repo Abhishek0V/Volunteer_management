@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 def community(request):
     messages = Message.objects.all()
-    return render(request, 'chat.html', {'messages': messages})
+    return render(request, 'community/chat.html', {'messages': messages})
 
 @login_required
 def send_message(request):
