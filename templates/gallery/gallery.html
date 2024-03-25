@@ -13,6 +13,24 @@
             color: #000;
             position: relative; /* Position relative for containing the upload button */
         }
+        .upload-button {
+            position: absolute;
+            top: 50%;
+            right: 10px; /* Adjust the distance from the right */
+            transform: translateY(-50%);
+            background-color: #4EABBD;
+            padding: 10px 20px; /* Adjust padding */
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            text-decoration: none;
+            margin-right: 20px ;
+        }
+        .upload-button:hover {
+            background-color: #0073ff;
+        }
+
         .image-container {
             display: flex;
             flex-wrap: wrap;
@@ -44,24 +62,20 @@
             border-radius: 5px; /* Add border radius for rounded corners */
             margin-top: 10px; /* Add margin to separate it from the gallery */
         }
-        .upload-button {
-            position: absolute;
-            /* top: 50%; */
-            right: 0;
-            /* transform: translateY(-50%); */
-            background-color: #4EABBD;
+        .header-wrapper {
+            position: relative;
+            text-decoration: none;
         }
-                
     </style>
 </head>
 <body>
     {% include 'navbar.html' %}
-    <h2>Gallery</h2>
-    <div>
-    <a href="/gallery/upload" class="upload-button">
-        <button class="login-button">Upload</button>
-    </a>
+    <div class="header-wrapper">
+        <h2>Gallery</h2>
+        <a href="/gallery/upload" class="upload-button">Upload Image</a>
     </div>
+    
+    
     <div class="description">
         <div class="image-container">
             {% for org_image in img %}
