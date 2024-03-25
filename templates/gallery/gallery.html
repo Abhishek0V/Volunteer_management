@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gallery</title>
+    <style>
+        h2{
+            font-size:3rem;
+            
+        }
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .image-container .image-wrapper {
+            flex: 0 0 calc(32.93% - 5px); /* Adjust width for 3 images with gap */
+            max-width: calc(32.93% - 5px); /* Adjust max-width for responsiveness */
+            margin-bottom: 5px; /* Adjust margin for gap between rows */
+            border: 1px solid #ddd; /* Add border */
+            border-radius: 5px; /* Add border radius for rounded corners */
+            overflow: hidden; /* Ensure image doesn't overflow */
+        }
+        .image-container img {
+            width: 100%;
+            height: auto; /* Maintain aspect ratio */
+            display: block;
+        }
+        .image-caption {
+            text-align: center;
+            margin-top: 5px;
+            font-style: italic;
+            padding:10px 1px; /* Add padding for caption */
+        }
+        .description {
+            border: 1px solid #e7dcdc; /* Add border to the description div */
+            min-height:90vh;
+            padding: 15px; /* Add padding to the description div */
+            border-radius: 5px; /* Add border radius for rounded corners */
+            margin-top: 10px; /* Add margin to separate it from the gallery */
+        }
+        .image-container p{
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <h2>Gallery</h2>
+    <div class="description">
+    <div class="image-container">
+        {% for org_image in img %}
+            <div class="image-wrapper">
+                <img src="{{ org_image.img.url }}" alt="">
+                <p class="image-caption">Uploaded by: {{ org_image.org.Org_Name }}</p>
+            </div>
+        {% empty %}
+            <p>No images found.</p>
+        {% endfor %}
+    </div>
+    </div>
+</body>
+</html>

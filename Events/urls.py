@@ -15,6 +15,8 @@ urlpatterns = [
     path('selected_volunteers/<int:event_id>/', views.selected_volunteers, name='selected_volunteers'),
     path('send_notification/<int:event_id>/', views.send_notification, name='send_notification'),
     path('notifications/', views.notification_page, name='notifications'),
+    path('gallery/upload/', views.upload, name='add_image'),
+    path('gallery/', views.gallery, name='gallery'),
     ]
 
 if settings.DEBUG:

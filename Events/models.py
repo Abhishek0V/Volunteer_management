@@ -29,6 +29,7 @@ class Registered_volunteers(models.Model):
     def __str__(self):
         return f"{self.Volunteers.Name}"
     
-class gallery(models.Model):
+class Gallery(models.Model):
       img=models.ImageField(upload_to="gallery/",blank=True,null=True)
+      org=models.ForeignKey(Org,related_name="org_profile", on_delete=models.CASCADE,default="")
    

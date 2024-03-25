@@ -3,11 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.template.loader import render_to_string
-
-
 from Volunteer.models import Notification, volunteer
-from .models import Events, Registered_volunteers
-from .forms import EventForm
+from .models import Events, Registered_volunteers,Gallery
+from .forms import EventForm,OrgImageForm
 
 
 def home(request):
@@ -122,3 +120,22 @@ def get_notifications(request):
         data = [{'text': notification.text} for notification in notifications]
         return JsonResponse(data, safe=False)
     return JsonResponse([], safe=False)  # Return empty list if user is not logged in or not a volunteer
+
+
+def upload(request):
+    if request.method == 'POST':
+        form = OrgImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            org_image = form.save(commit=False)
+            org_image.org = request.user.org_profile  # Assuming authenticated user is an organization
+            org_image.save()
+            return redirect('home')  # Redirect to gallery after adding image
+        else:
+            return redirect("add_image")
+    else:
+        form = OrgImageForm()
+    return render(request, 'gallery/upload.html', {'form': form})
+
+def gallery(request):
+    org_images = Gallery.objects.all()
+    return render(request, 'gallery/gallery.html', {'img': org_images})

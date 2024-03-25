@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Image</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ece7e7;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 600px;
+            height:36vh;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #c0d8e7;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border:1px solid rgb(198, 196, 196);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #132d6e;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        /* Hide the default file input */
+        input[type="file"] {
+            display: none;
+        }
+
+        /* Style the custom file input button */
+        .custom-file-input {
+            margin:15px 220px;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .custom-file-input:hover {
+            background-color: #0056b3;
+        }
+
+        /* Style the custom upload button */
+        .custom-upload-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: #1267c1;
+            color: white;
+            margin:35px 0;
+            border: none;
+            width:35vw;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        .custom-upload-button:hover {
+            background-color: #132d6e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Post Event Images</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                
+                <!-- Custom file input button -->
+                <label class="custom-file-input" for="id_img">select Image</label>
+                <!-- Actual file input -->
+                {{ form.img }}
+            </div>
+            <!-- Custom upload button -->
+            <button type="submit" class="custom-upload-button">Upload</button>
+        </form>
+    </div>
+</body>
+</html>
