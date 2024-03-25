@@ -21,12 +21,11 @@ class VolSignupForm(forms.ModelForm):
 
     class Meta:
         model = volunteer
-        fields = ['Name','Age','Gender','Location','profile_img']
+        fields = ['Name', 'Age', 'Gender', 'Location', 'password', 'profile_img']
 
     def __init__(self, *args, **kwargs):
         super(VolSignupForm, self).__init__(*args, **kwargs)
         self.fields['email'] = forms.EmailField()
-        
 
     def save(self, commit=True):
         user = User.objects.create_user(

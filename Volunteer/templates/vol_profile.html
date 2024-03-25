@@ -16,7 +16,20 @@
             height: 100vh;
         }
 
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000; /* Ensure navbar is above other elements */
+        }
+
         .profile-container {
+            margin-top: 60px; /* Adjust margin to accommodate navbar height */
             background-color: #fff;
             border-radius: 10px;
             padding: 20px;
@@ -26,6 +39,7 @@
             gap: 20px;
             width: 100%;
             max-width: 800px;
+            position: relative; /* Set position to relative */
         }
 
         .profile-image {
@@ -56,8 +70,9 @@
             margin: 5px 0;
         }
 
+        /* Position the logout button */
         .logout-btn {
-            position: fixed;
+            position: absolute;
             bottom: 20px;
             right: 20px;
             background-color: #007bff;
@@ -72,28 +87,13 @@
         .logout-btn:hover {
             background-color: #0056b3;
         }
-        
-        .home-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            text-decoration: none;
-        }
-
-        .home-btn:hover {
-            background-color: #0056b3;
-        }
     </style>
 </head>
 <body>
-    <a class="home-btn" href="{% url 'home' %}">Home</a>
+    <div class="navbar">
+        {% include 'navbar.html' %}
+    </div>
+    
     <div class="profile-container">
         <div class="profile-image">
             {% if volunteer_profile.profile_img %}
@@ -109,8 +109,10 @@
             <p><strong>Gender:</strong> {{ volunteer_profile.get_Gender_display }}</p>
             <p><strong>Age:</strong> {{ volunteer_profile.Age }}</p>
             <p><strong>Location:</strong> {{ volunteer_profile.Location }}</p>
+            
         </div>
+        <!-- Logout button -->
+        <button class="logout-btn" onclick="location.href='{% url 'volunteer_logout' %}'">Logout</button>
     </div>
-    <button class="logout-btn" onclick="location.href='{% url 'volunteer_logout' %}'">Logout</button>
 </body>
 </html>

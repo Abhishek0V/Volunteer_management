@@ -1,16 +1,134 @@
-<!-- org/templates/org/signup.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Organization Signup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000; /* Ensure navbar is above other elements */
+        }
+        .container {
+            max-width: 500px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 60px; /* Adjust to accommodate navbar height */
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input[type="file"] {
+            margin-top: 5px;
+        }
+        .error-message {
+            color: #ff0000;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>Organization Signup</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Signup</button>
-    </form>
+    <div class="navbar">
+        {% include 'navbar.html' %}
+    </div>
+    <div class="container">
+        <h1>Organization Signup</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_email">Email</label>
+                {{ form.email }}
+                <div class="error-message">
+                    {{ form.email.errors }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="id_password">Password</label>
+                <input type="password" name="password" id="id_password">
+                <div class="error-message">
+                    {{ form.password.errors }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="id_Org_Name">Organization Name</label>
+                {{ form.Org_Name }}
+                <div class="error-message">
+                    {{ form.Org_Name.errors }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="id_Location">Location</label>
+                {{ form.Location }}
+                <div class="error-message">
+                    {{ form.Location.errors }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="id_profile">Profile Image</label>
+                {{ form.profile }}
+                <div class="error-message">
+                    {{ form.profile.errors }}
+                </div>
+            </div>
+            <button type="submit">Signup</button>
+        </form>
+    </div>
 </body>
 </html>

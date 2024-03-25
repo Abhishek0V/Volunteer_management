@@ -191,38 +191,27 @@
             display: flex;
             align-items: flex-end; /* Aligned to the bottom */
         }
-    
-        .apply-button-container .apply-button {
-            margin-left: 400px; /* Added margin between buttons */
+
+        .apply-button {
+            border: none;
+            padding: 10px 20px;
+            background-color: #4EABBD;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
         }
 
         /* Adjusted the position of the buttons */
         .apply-button-container.left {
-            right: auto;
+            right: 30%;
         }
     </style>
     
 </head>
 <body>
-    <div class="navbar">
-        <div>
-            <img src="logo.png" alt="Logo" class="navbar-logo" />
-        </div>
-        <div class="navbar-menu">
-            <a href="/">Home</a>
-            <a href="/gallery">Gallery</a>
-            <a href="/contact">Contact</a>
-            <a href="/community/">Community</a>
-            {% if user.is_authenticated and user.vol_profile %}
-                <a href="/notifications">Notification</a>
-            {% endif %}
-        </div>
-        {% if user.is_authenticated %}
-            <a href="/volunteer/logout"><button class="login-button">Logout</button></a>
-        {% else %}
-            <a href='/volunteer/login'><button class="login-button">Login</button></a>
-        {% endif %}
-    </div>
+    {% include 'navbar.html' %}
     <div class="banner">
         <h1>{{ event.Event_Name }}</h1>
     </div>

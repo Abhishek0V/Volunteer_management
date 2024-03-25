@@ -23,6 +23,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            text-decoration: none;
         }
 
         .navbar-logo {
@@ -40,8 +41,12 @@
         .navbar-menu a {
             color: #000000;
             text-decoration: none;
-            font-weight: bold;
+            /* font-weight: bold; */
             margin: 0 20px;
+            font-size: 20px;
+        }
+        .navbar a{
+            padding: 10px 20px;
         }
 
         .login-button {
@@ -110,6 +115,11 @@
             margin-top: 20px;
             justify-content: center;
                     }
+
+        .button :hover{
+            background-color: #0056b3;
+            color: #fff;
+        }
     </style>
 </head>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
@@ -252,9 +262,11 @@
         <div class="footercontainer">
         <div>
             <img src="{% static 'home/logo.png' %}" alt="Logo" class="footer-logo" />
-            <p class="footer-description">HELPER</p>
+            <p class="footer-description">Learn <br> Collaborate<br>Empower</p>
         </div>
-        <img src="gallery.png" alt="Center Image" class="footer-image" />
+        <a href="/gallery">
+        <img src="{% static 'home/galleryicon.svg' %}" alt="Center Image" class="footer-image" />
+        </a>
         <div class="right-side">
             <p>Quick line</p>
             <p>About us</p>

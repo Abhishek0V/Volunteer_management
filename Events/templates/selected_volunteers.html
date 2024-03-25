@@ -1,6 +1,8 @@
-{% extends 'main.html'%}
-
-{% block content %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Selected Volunteers</title>
 <style>
     /* Body styles */
     .footer{
@@ -10,7 +12,7 @@
         font-family: Arial, sans-serif;
         background-color: #f8f9fa;
         margin: 0;
-        padding: 20px;
+        /* padding: 20px; */
     }
 
     /* Header styles */
@@ -56,9 +58,13 @@
 
     button:hover {
         background-color: #0056b3;
+        color: #fff;
     }
 </style>
-<div><hr>
+</head>
+<body>
+    {% include 'navbar.html' %}
+<div>
     <h1>Selected Volunteers for {{ event.Event_Name }}</h1>
     <table>
         <thead>
@@ -87,5 +93,5 @@
         <button type="submit" class="send_notification">Send Notification</button>
     </form>
 </div>
-
-{% endblock%}
+</body>
+</html>

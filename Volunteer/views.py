@@ -60,7 +60,7 @@ def vol_signup(request):
             return redirect('home')  # Adjust this to your actual login URL
     else:
         form = VolSignupForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'vol-signup.html', {'form': form})
 
 
 def volunteer_logout(request):

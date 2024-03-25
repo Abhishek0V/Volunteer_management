@@ -9,7 +9,9 @@
         }
         h2{
             font-size:3rem;
-            
+            text-align:center;
+            color: #000;
+            position: relative; /* Position relative for containing the upload button */
         }
         .image-container {
             display: flex;
@@ -42,26 +44,35 @@
             border-radius: 5px; /* Add border radius for rounded corners */
             margin-top: 10px; /* Add margin to separate it from the gallery */
         }
-        .image-container p{
-            text-align:center;
+        .upload-button {
+            position: absolute;
+            /* top: 50%; */
+            right: 0;
+            /* transform: translateY(-50%); */
+            background-color: #4EABBD;
         }
-        
+                
     </style>
 </head>
 <body>
     {% include 'navbar.html' %}
     <h2>Gallery</h2>
-    <div class="description">
-    <div class="image-container">
-        {% for org_image in img %}
-            <div class="image-wrapper">
-                <img src="{{ org_image.img.url }}" alt="">
-                <p class="image-caption">Uploaded by: {{ org_image.org.Org_Name }}</p>
-            </div>
-        {% empty %}
-            <p>No images found.</p>
-        {% endfor %}
+    <div>
+    <a href="/gallery/upload" class="upload-button">
+        <button class="login-button">Upload</button>
+    </a>
     </div>
+    <div class="description">
+        <div class="image-container">
+            {% for org_image in img %}
+                <div class="image-wrapper">
+                    <img src="{{ org_image.img.url }}" alt="">
+                    <p class="image-caption">Uploaded by: {{ org_image.org.Org_Name }}</p>
+                </div>
+            {% empty %}
+                <p>No images found.</p>
+            {% endfor %}
+        </div>
     </div>
 </body>
 </html>

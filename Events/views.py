@@ -6,7 +6,7 @@ from django.template.loader import render_to_string
 from Volunteer.models import Notification, volunteer
 from .models import Events, Registered_volunteers,Gallery
 from .forms import EventForm,OrgImageForm
-from User.models import Org
+
 
 
 def home(request):
@@ -14,20 +14,30 @@ def home(request):
     context = { 'events': events}
     return render(request, 'home.html', context)
 
+from django.contrib.auth.models import User
+
 def events(request, pk):
     event = get_object_or_404(Events, Event_ID=pk)
     
-    # Fetch the organization associated with the logged-in user
-    org_user = request.user.org_profile
-    
-    # Check if the logged-in user is an organization and if it's the same as the one that created the event
-    if request.user.is_authenticated and request.user.Role == 'Org' and org_user == event.Created_Org:
-        is_org_user = True
+    # Check if the user is authenticated and is an organization
+    if request.user.is_authenticated and request.user.Role == 'Org':
+        try:
+            # Attempt to fetch the organization profile associated with the user
+            org_user = request.user.org_profile
+            # Check if the organization matches the one that created the event
+            if org_user == event.Created_Org:
+                is_org_user = True
+            else:
+                is_org_user = False
+        except User.org_profile.RelatedObjectDoesNotExist:
+            # If the organization profile does not exist for the user, handle the case gracefully
+            is_org_user = False
     else:
         is_org_user = False
     
     context = {'event': event, 'is_org_user': is_org_user}
     return render(request, 'events.html', context)
+
 
 @login_required
 def create_event(request):
