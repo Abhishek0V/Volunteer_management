@@ -72,7 +72,10 @@
     {% include 'navbar.html' %}
     <div class="header-wrapper">
         <h2>Gallery</h2>
+        {% if user.is_authenticated and user.org_profile %}
+            
         <a href="/gallery/upload" class="upload-button">Upload Image</a>
+        {% endif %}
     </div>
     
     
